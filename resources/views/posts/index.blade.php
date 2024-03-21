@@ -27,7 +27,7 @@
       <td>{{ substr ($post ->content, 1, 60).'...' }}</td>
       <td>{{ $post->category->name}}</td>
       <td>
-        <button class="btn btn-info"> Show </button>
+        <a href="{{ Route('posts.show',$post->id) }}"class="btn btn-info"> Show </a>
         <button class="btn btn-success"> Edit  </button>
         <button class="btn btn-danger"> DElete</button>
       </td>
