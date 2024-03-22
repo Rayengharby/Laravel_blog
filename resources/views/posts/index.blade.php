@@ -1,6 +1,11 @@
 
   @extends('layouts.app')
   @section('content')
+  <div class="px-3 py-4 ">
+    <a href="{{ Route('posts.create') }}" class=" btn btn-success"> ADD New Post</a>
+    {{-- or
+    <a href="{{ url('posts/create') }}" class=" btn btn-success"> ADD New Post</a> --}}
+  </div>
 <table class="table">
   <thead>
     <tr>

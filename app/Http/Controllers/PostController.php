@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -22,7 +24,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        // on fait ca car i lya des clé étranger
+        // récuperer tous les utulisateurs
+        $Users =User::all();
+        // récuperer toutes la liste de category
+        $categories=Category::all();
+        return view('posts.create' ,compact('Users' ,'categories'));
     }
 
     /**
