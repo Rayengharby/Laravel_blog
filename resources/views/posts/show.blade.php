@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if(Session::has('success'))
+<div class="alert alert-success" role="alert">
+  {{ session::get('success') }}
+</div>
+@endif
+
     <div class="container py-4" style="width: 18rem;">
         <img src="{{ $post->image }}" class="card-img-top" alt="{{ $post->title }}">
         <div class="card-body">

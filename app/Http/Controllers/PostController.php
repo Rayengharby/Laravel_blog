@@ -47,7 +47,7 @@ class PostController extends Controller
         $newPost->category_id = $request->category_id;
         // sauvgarder dans le BD
         $newPost->save();
-        return redirect()->route('posts.show',$newPost->id);
+        return redirect()->route('posts.show',$newPost->id)-> with('success','Post created successfully');
 
     }
 
