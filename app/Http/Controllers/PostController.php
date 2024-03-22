@@ -37,6 +37,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // Validation 
+        $request->validate([
+        'title' => 'required|min:5' ,
+        'content' =>'required|max:140' , 
+        'user_id' => 'required|exists:users,id' ,
+        'category_id' => 'required|exists:categories,id',
+        ]);
         // dd($request->all());
         // cree un Post vide 
         $newPost= new  Post();
