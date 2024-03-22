@@ -37,7 +37,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        // cree un Post vide 
+        $newPost= new  Post();
+        // remplir avec le contenu du formulaire 
+        $newPost->title = $request->title;
+        $newPost->content = $request->content;
+        $newPost->user_id = $request->user_id;
+        $newPost->category_id = $request->category_id;
+        // sauvgarder dans le BD
+        $newPost->save();
+        return redirect()->route('posts.show',$newPost->id);
+
     }
 
     /**

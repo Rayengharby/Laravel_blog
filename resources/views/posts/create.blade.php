@@ -2,7 +2,7 @@
 @section('content')
 <div class="container text-center"> <h1> Add New Post </h1></div>
 <form action="{{ route('posts.store') }}" method="post">
-
+@csrf
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="text" class="form-control" value="{{ old('title') }}" name="title" id="title" placeholder="Write The Title">
@@ -14,7 +14,7 @@
 
 
     <label for="user" class="form-label">Users</label>
-    <select class="form-select" id="user" aria-label="Default select example">
+    <select class="form-select" id="user_id" name="user_id" aria-label="Default select example">
         <option selected>Select The User</option>
         @foreach ($Users as $User)
         <option value="{{ $User->id }}">{{ $User->name }}</option>
@@ -23,7 +23,7 @@
 
 
     <label for="category" class="form-label">Category</label>
-    <select class="form-select" id="category" aria-label="Default select example">
+    <select class="form-select" id="category_id" name="category_id" aria-label="Default select example">
         <option selected>Select The category</option>
         @foreach ($categories as $category)
         <option value="{{ $category->id }}">{{ $category->name }}</option>
