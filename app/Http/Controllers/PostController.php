@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -38,25 +39,29 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // Validation 
-        $request->validate([
-        'title' => 'required|min:5' ,
-        'content' =>'required|max:140' , 
-        'user_id' => 'required|exists:users,id' ,
-        'category_id' => 'required|exists:categories,id',
-        ]);
-        // dd($request->all());
-        // cree un Post vide 
-        $newPost= new  Post();
-        // remplir avec le contenu du formulaire 
+        $request->validate($this->validationRules());
+
+        // Récupérer le nom de l'image uploadée
+        // puis la transférer dans le dossier 'storage/app/posts'
+        $image = Storage::disk('public')->put('Posts', $request->file('image'));
+
+        //$image = Storage::put('posts',$request->file('image'));
+
+        // Créer un Post vide
+        $newPost = new Post();
+
+        // Le remplir avec le contenu du formulaire
         $newPost->title = $request->title;
         $newPost->content = $request->content;
+        $newPost->image = $image;
         $newPost->user_id = $request->user_id;
         $newPost->category_id = $request->category_id;
-        // sauvgarder dans le BD
-        $newPost->save();
-        return redirect()->route('posts.show',$newPost->id)-> with('success','Post created successfully');
 
+        // Sauvegarde dans la BD
+        $newPost->save();
+        return redirect()->route('posts.show', $newPost->id)->with('success', 'Post created successfully');
     }
+
 
     /**
      * Display the specified resource.
@@ -89,5 +94,15 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    private function validationRules()
+    {
+        return [
+            'title' => 'required|min:5',
+            'content' => 'required|min:10',
+            'user_id' => 'required|exists:users,id',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ];
     }
 }
