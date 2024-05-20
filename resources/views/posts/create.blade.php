@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container text-center"> <h1> Add New Post </h1></div>
-<form action="{{ route('posts.store') }}" method="post">
+<form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
 @csrf
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
