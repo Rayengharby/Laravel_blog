@@ -111,7 +111,7 @@ class PostController extends Controller
         $post->user_id = $request->user_id;
         $post->category_id = $request->category_id;
 
-        // Enregister le Post mis à jour
+       
         $post->save();
 
         return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully');
@@ -122,9 +122,22 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        //
+    
+{
+    $post = Post::findOrFail($id);
+
+    $image = $post->image;
+
+    if ($image !== null && Storage::disk('public')->exists($image)) {
+        Storage::disk('public')->delete($image);
     }
+
+    $post->delete();
+
+    return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
+}
+
+    
     private function validationRules()
     {
         return [
