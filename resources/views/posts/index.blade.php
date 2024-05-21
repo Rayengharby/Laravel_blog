@@ -25,7 +25,7 @@
       <td>{{ $post->category->name}}</td>
       <td>
         <a href="{{ Route('posts.show',$post->id) }}"class="btn btn-info"> Show </a>
-        <button class="btn btn-success"> Edit  </button>
+        <a href ="{{ route('posts.edit',$post->id) }}" class="btn btn-outline-warning">Edit</a>
         <button class="btn btn-danger"> DElete</button>
       </td>
     </tr>
